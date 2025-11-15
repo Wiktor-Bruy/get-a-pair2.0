@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Homework-11</title>
+    <title>Get a pair 2.0</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -18,33 +18,42 @@
     <link rel="stylesheet" href="./css/styles.css" />
   </head>
   <body>
-    <main>
-      <section class="search-section">
-        <h1 class="visually-hidden">Search images</h1>
-        <div class="container">
-          <form class="form">
-            <label>
-              <input
-                class="input-word"
-                type="text"
-                name="word"
-                placeholder="Search images..."
-                maxlength="100"
-              />
-            </label>
-            <button class="btn" type="submit">Search</button>
-          </form>
-        </div>
-      </section>
+    <section class="start-page">
+      <div class="container">
+        <h1 class="title-game">Гра "Знайдіть пару2.0"</h1>
+        <p class="start-text">
+          Щоб розпочати, оберіть тему. Або введіть власну, та натисніть
+          "Розпочати".
+        </p>
+        <ul class="list-teme">
+          <li class="choice-teme" data-value="cars">Автомобілі</li>
+          <li class="choice-teme" data-value="motorcycles">Мотоцикли</li>
+          <li class="choice-teme" data-value="anime">Аніме</li>
+          <li class="choice-teme" data-value="landscapes">Природа</li>
+          <li class="choice-teme" data-value="dogs">Собаки</li>
+          <li class="choice-teme" data-value="cats">Коти</li>
+          <li class="choice-teme" data-value="architecture">Архітектура</li>
+          <li class="choice-teme" data-value="cinema">Кіно</li>
+          <li class="choice-teme" data-value="science">Наука</li>
+        </ul>
+        <form class="enter-teme">
+          <input
+            title="Для кращого результату вводьте запит на англійській."
+            class="inp-teme"
+            type="text"
+            name="teme"
+            placeholder="Введіть власну тему..."
+          />
+          <button class="btn-start" type="submit">Розпочати</button>
+        </form>
+      </div>
+    </section>
 
-      <section class="section-images">
-        <div class="container">
-          <h2 class="visually-hidden">Images list</h2>
-          <span class="loader"></span>
-          <ul class="gallery"></ul>
-        </div>
-      </section>
-    </main>
+    <section class="game-page">
+      <div class="container">
+        <ul class="game-gallery"></ul>
+      </div>
+    </section>
 
     <script type="module" src="./main.js"></script>
   </body>

@@ -1,65 +1,52 @@
 'use strict';
 
-// Імпорти бібліотек
+//-------------------------------------------------------------Глобальні-змінні
+let teme;
+let level = 1;
+const refs = {
+  startPage: document.querySelector('.start-page'),
+  startList: document.querySelector('.list-teme'),
+  form: document.querySelector('.enter-teme'),
+  gamePage: document.querySelector('.game-page'),
+};
+//-----------------------------------------------------------------------------
 
-import iziToast from 'izitoast';
-import 'izitoast/dist/css/iziToast.min.css';
-
-// Імпорти модулів
-
-import * as galleryMethods from './js/render-functions';
-import getImagesByQuery from './js/pixabay-api';
-
-// Обробка сабміту форми
-
-const form = document.querySelector('.form');
-form.addEventListener('submit', startSearch);
-
-function startSearch(event) {
-  event.preventDefault();
-  const searchWords = event.target.elements.word.value.trim();
-  if (searchWords != '') {
-    // Запит та обробка його результату
-
-    galleryMethods.showLoader(); // Показ індикатора завандаження
-    getImagesByQuery(searchWords)
-      .then(value => {
-        // Обробка результату відповіді
-
-        galleryMethods.hideLoader(); // Приховуємо індикатор завантаження
-        // Виводимо всовіщення про невдалий пошук
-
-        if (value.length === 0) {
-          galleryMethods.clearGallery();
-          iziToast.warning({
-            message:
-              'Sorry, there are no images matching your search query. Please try again!',
-            messageColor: '#fff',
-            backgroundColor: 'red',
-            theme: 'dark',
-            position: 'center',
-          });
-        } else {
-          galleryMethods.clearGallery();
-          galleryMethods.createGallery(value);
-        }
-      })
-      .catch(error => {
-        // Обробка помилки
-
-        console.log(error);
-        galleryMethods.hideLoader(); // Приховуємо індикатор завантаженняw
-      });
-    form.reset();
-  } else {
-    // Попередження при порожньому запиті
-
-    iziToast.warning({
-      message: 'Enter word for search...',
-      messageColor: '#fff',
-      backgroundColor: 'red',
-      theme: 'dark',
-      position: 'topRight',
-    });
-  }
+//----------------------------------------------------------------------Функції
+//----------------------------------------Відкриття-закриття-стартової-сторінки
+function hideStartPage() {
+  refs.startPage.classList.add('is-close');
 }
+function showStartPage() {
+  refs.startPage.classList.remove('is-close');
+}
+//----------------------------------------------Відкриття-закриття-сторінки-гри
+function showGamePage() {
+  refs.gamePage.classList.add('is-open');
+}
+function hideGamePage() {
+  refs.gamePage.classList.remove('is-open');
+}
+//------------------------------------------------------------Кліки-вибору-теми
+function clickTeme(event) {
+  const target = event.target;
+  if (target.tagName != 'LI') {
+    return;
+  }
+  teme = target.dataset.value;
+  hideStartPage();
+  showGamePage();
+}
+//-----------------------------------------------------------Вибір-теми-в-формі
+function enterTeme(event) {
+  event.preventDefault();
+  teme = event.target.elements.teme.value.trim();
+  hideStartPage();
+  showGamePage();
+}
+//-----------------------------------------------------------------------------
+
+//-------------------------------------------------------------------Логіка-гри
+//---------------------------------------------Обробка-подій-стартової-сторінки
+refs.startList.addEventListener('click', clickTeme);
+refs.form.addEventListener('submit', enterTeme);
+//-----------------------------------------------------------------------------
