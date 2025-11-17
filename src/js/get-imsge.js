@@ -5,34 +5,34 @@ export default async function getImagesArray(level, teme) {
   let quantiti;
   switch (level) {
     case 1:
-      quantiti = 12;
+      quantiti = 6;
       break;
     case 2:
-      quantiti = 15;
+      quantiti = 8;
       break;
     case 3:
-      quantiti = 20;
+      quantiti = 10;
       break;
     case 4:
-      quantiti = 25;
+      quantiti = 12;
       break;
     case 5:
-      quantiti = 30;
+      quantiti = 15;
       break;
     case 6:
-      quantiti = 36;
+      quantiti = 18;
       break;
     case 7:
-      quantiti = 42;
+      quantiti = 21;
       break;
     case 8:
-      quantiti = 49;
+      quantiti = 24;
       break;
     case 9:
-      quantiti = 56;
+      quantiti = 28;
       break;
     case 10:
-      quantiti = 64;
+      quantiti = 32;
       break;
   }
 
