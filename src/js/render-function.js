@@ -17,44 +17,44 @@ export function renderGameGallery(arr, level) {
   let height;
   switch (level) {
     case 1:
-      width = (1200 - 30) / 4 - 1;
-      height = (600 - 20) / 3 - 1;
+      width = (1195 - 30 - 25) / 4;
+      height = (595 - 20 - 25) / 3;
       break;
     case 2:
-      width = (1200 - 30) / 4 - 1;
-      height = (600 - 30) / 4 - 1;
+      width = (1195 - 30 - 25) / 4;
+      height = (595 - 30 - 25) / 4;
       break;
     case 3:
-      width = (1200 - 40) / 5 - 1;
-      height = (600 - 30) / 4 - 1;
+      width = (1195 - 40 - 25) / 5;
+      height = (595 - 30 - 25) / 4;
       break;
     case 4:
-      width = (1200 - 50) / 6 - 1;
-      height = (600 - 30) / 4 - 1;
+      width = (1195 - 50 - 25) / 6;
+      height = (595 - 30 - 25) / 4;
       break;
     case 5:
-      width = (1200 - 50) / 6 - 1;
-      height = (600 - 40) / 5 - 1;
+      width = (1195 - 50 - 25) / 6;
+      height = (595 - 40 - 25) / 5;
       break;
     case 6:
-      width = (1200 - 50) / 6 - 1;
-      height = (600 - 50) / 6 - 1;
+      width = (1195 - 50 - 25) / 6;
+      height = (595 - 50 - 25) / 6;
       break;
     case 7:
-      width = (1200 - 60) / 7 - 1;
-      height = (600 - 50) / 6 - 1;
+      width = (1195 - 60 - 25) / 7;
+      height = (595 - 50 - 25) / 6;
       break;
     case 8:
-      width = (1200 - 70) / 8 - 1;
-      height = (600 - 50) / 6 - 1;
+      width = (1195 - 70 - 25) / 8;
+      height = (595 - 50 - 25) / 6;
       break;
     case 9:
-      width = (1200 - 70) / 8 - 1;
-      height = (600 - 60) / 7 - 1;
+      width = (1195 - 70 - 25) / 8;
+      height = (595 - 60 - 25) / 7;
       break;
     case 9:
-      width = (1200 - 70) / 8 - 1;
-      height = (600 - 70) / 8 - 1;
+      width = (1195 - 70 - 25) / 8;
+      height = (595 - 70 - 25) / 8;
       break;
   }
 
@@ -73,13 +73,13 @@ export function renderGameGallery(arr, level) {
 
   const imgArr = [...imgArr1, ...imgArr2].toSorted((a, b) => a.rang - b.rang);
 
-  let gameArr;
+  let gameArr = [];
 
   imgArr.forEach(el => {
     const item = document.createElement('li');
     item.classList.add('game-item');
-    item.style.width = String(width);
-    item.style.height = String(height);
+    item.style.width = `${width}px`;
+    item.style.height = `${height}px`;
 
     const span = document.createElement('span');
     span.classList.add('fon');

@@ -2,6 +2,7 @@
 
 import getArrayImages from './js/get-imsge';
 import * as render from './js/render-function';
+import * as some from './js/some-function';
 
 //-------------------------------------------------------------Глобальні-змінні
 let teme;
@@ -17,7 +18,44 @@ const refs = {
   startList: document.querySelector('.list-teme'),
   form: document.querySelector('.enter-teme'),
   gamePage: document.querySelector('.game-page'),
+  gameGallery: document.querySelector('.game-gallery'),
 };
+let isComparwe = false;
+let span1;
+let span2;
+let count;
+switch (level) {
+  case 1:
+    count = 6;
+    break;
+  case 2:
+    count = 8;
+    break;
+  case 3:
+    count = 10;
+    break;
+  case 4:
+    count = 12;
+    break;
+  case 5:
+    count = 15;
+    break;
+  case 6:
+    count = 18;
+    break;
+  case 7:
+    count = 21;
+    break;
+  case 8:
+    count = 24;
+    break;
+  case 9:
+    count = 28;
+    break;
+  case 10:
+    count = 32;
+    break;
+}
 //-----------------------------------------------------------------------------
 
 //----------------------------------------------------------------------Функції
@@ -45,7 +83,7 @@ function clickTeme(event) {
   hideStartPage();
   showGamePage();
   getArrayImages(page, teme).then(answer => {
-    console.log(answer);
+    render.renderGameGallery(answer, level);
   });
 }
 //-----------------------------------------------------------Вибір-теми-в-формі
@@ -93,13 +131,42 @@ function enterTeme(event) {
       hideStartPage();
       showGamePage();
       refs.form.reset();
+      render.renderGameGallery(answer, level);
     }
   });
 }
+
+//--------------------------------------------------Обробка-кліків-по-картинкам
+function game(event) {
+  if (isComparwe) {
+    return;
+  }
+  const elem = event.target;
+  if (elem.tagName != 'SPAN') {
+    return;
+  }
+  if (!span1) {
+    span1 = elem;
+    span1.classList.add('invis');
+  } else {
+    span2 = elem;
+    span2.classList.add('invis');
+    isComparwe = true;
+    some.comparisonImg(span1, span2);
+    isComparwe = false;
+    span1 = 0;
+    span2 = 0;
+  }
+}
+
 //-----------------------------------------------------------------------------
 
 //-------------------------------------------------------------------Логіка-гри
 //---------------------------------------------Обробка-подій-стартової-сторінки
 refs.startList.addEventListener('click', clickTeme);
 refs.form.addEventListener('submit', enterTeme);
+
+//-----------------------------------------------------Кліки-по-картинкам-у-грі
+refs.gameGallery.addEventListener('click', game);
+
 //-----------------------------------------------------------------------------
