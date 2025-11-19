@@ -103,19 +103,34 @@ export function renderGameGallery(arr, level) {
   game.append(...gameArr);
 }
 //--------------------------------------------------Вікно-закінчення-раунда
-export function showRounrOwerWindow(start) {
+export function showRounrOwerWindow(start, level) {
   const wind = document.querySelector('.round-ower');
   const text = document.querySelector('.round-ower-text');
   const end = Date.now();
-
+  const time = end - start;
+  const timeOut = timeGame(time);
   wind.classList.add('is-open');
+  if (level < 10) {
+    text.textContent = `Ваш час раунда ${timeOut.hours} год. ${timeOut.minutes} хв. ${timeOut.secunds} сек. Бажаєте продовжити?`;
+  } else {
+    text.textContent = 'Вітаємо, ві пройшили всі рівні за обраною темою.';
+    const btn = document.querySelector('.btn-continue');
+    btn.classList.add('none');
+  }
+}
+
+export function closeRoundOwerWindow() {
+  const wind = document.querySelector('.round-ower');
+  wind.classList.remove('is-open');
 }
 
 //-------------------------------------------Функції-для-внутрішньої-роботи
 //------------------------------------------------------Розрахунок-часу-гри
-function timeGame(start, end) {
-  const time = end - start;
+function timeGame(time) {
   const hours = Math.floor(time / 60 / 60 / 1000);
+  const minutes = Math.floor((time - hours * 3600 * 1000) / 60 / 1000);
+  const secunds = Math.floor(time / 1000) - hours * 3600 - minutes * 60;
+  return { hours, minutes, secunds };
 }
 
 //-------------------------------------------------Створення-масиву-для-гри

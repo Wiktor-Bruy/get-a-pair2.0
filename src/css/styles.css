@@ -269,6 +269,7 @@ section {
   max-height: 600px;
 }
 .round-ower-text {
+  padding: 10px;
   font-size: 18px;
   font-weight: 500;
   line-height: 1.2;
@@ -293,4 +294,7 @@ section {
   width: 170px;
   border-radius: 6px;
   font-weight: 600;
+}
+.none {
+  display: none;
 }

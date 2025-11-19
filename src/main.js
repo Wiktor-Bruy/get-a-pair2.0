@@ -5,58 +5,26 @@ import * as render from './js/render-function';
 import * as some from './js/some-function';
 
 //-------------------------------------------------------------Глобальні-змінні
-let teme;
-let level = 1;
-let page;
-if (level === 1) {
-  page = 1;
-} else {
-  page = Math.ceil(level / 2);
-}
+const saveLevel = sessionStorage.getItem(level);
+const saveTeme = sessionStorage.getItem(teme);
+const savePage = sessionStorage.getItem(page);
+let teme = saveTeme || undefined;
+let level = saveLevel || 1;
+let page = savePage || 1;
 const refs = {
   startPage: document.querySelector('.start-page'),
   startList: document.querySelector('.list-teme'),
   form: document.querySelector('.enter-teme'),
   gamePage: document.querySelector('.game-page'),
   gameGallery: document.querySelector('.game-gallery'),
+  goFirstPageBtn: document.querySelector('.go-first'),
+  btnContinue: document.querySelector('.btn-continue'),
 };
 let isComparwe = false;
 let span1;
 let span2;
 let timeStart;
-// let count;
-// switch (level) {
-//   case 1:
-//     count = 6;
-//     break;
-//   case 2:
-//     count = 8;
-//     break;
-//   case 3:
-//     count = 10;
-//     break;
-//   case 4:
-//     count = 12;
-//     break;
-//   case 5:
-//     count = 15;
-//     break;
-//   case 6:
-//     count = 18;
-//     break;
-//   case 7:
-//     count = 21;
-//     break;
-//   case 8:
-//     count = 24;
-//     break;
-//   case 9:
-//     count = 28;
-//     break;
-//   case 10:
-//     count = 32;
-//     break;
-// }
+
 //-----------------------------------------------------------------------------
 
 //----------------------------------------------------------------------Функції
@@ -80,18 +48,28 @@ function clickTeme(event) {
   if (target.tagName != 'LI') {
     return;
   }
-  teme = target.dataset.value;
+  const input = target.dataset.value;
+  if (teme != input) {
+    teme = input;
+    level = 1;
+    page = 1;
+  }
   hideStartPage();
   showGamePage();
   getArrayImages(page, teme).then(answer => {
     render.renderGameGallery(answer, level);
-    timeStart = Date.now(timeStart);
+    timeStart = Date.now();
   });
 }
 //-----------------------------------------------------------Вибір-теми-в-формі
 function enterTeme(event) {
   event.preventDefault();
-  teme = event.target.elements.teme.value.trim();
+  const input = event.target.elements.teme.value.trim().toLowerCase();
+  if (teme != input) {
+    teme = input;
+    level = 1;
+    page = 1;
+  }
   getArrayImages(page, teme).then(answer => {
     let quantiti;
     switch (level) {
@@ -140,6 +118,22 @@ function enterTeme(event) {
 }
 
 //---------------------------------------------------Перехід-на-наступний-раунд
+function nextRound() {
+  level++;
+  page = Math.ceil(level / 2);
+}
+
+//-------------------------------------------------Перехід-на-головну-з-модалки
+function goFirstPage() {
+  refs.gameGallery.innerHTML = '';
+  render.closeRoundOwerWindow();
+  hideGamePage();
+  showStartPage();
+  level = 1;
+  teme = undefined;
+  page = 1;
+}
+
 //--------------------------------------------------Обробка-кліків-по-картинкам
 function game(event) {
   if (isComparwe) {
@@ -162,7 +156,7 @@ function game(event) {
       span2 = 0;
       const isOwer = some.isRoundOwer();
       if (isOwer) {
-        render.showRounrOwerWindow();
+        render.showRounrOwerWindow(timeStart, level);
       }
     });
   }
@@ -177,5 +171,9 @@ refs.form.addEventListener('submit', enterTeme);
 
 //-----------------------------------------------------Кліки-по-картинкам-у-грі
 refs.gameGallery.addEventListener('click', game);
+
+//---------------------------------------------------------------Кнопки-модалки
+refs.goFirstPageBtn.addEventListener('click', goFirstPage);
+refs.btnContinue.addEventListener('click', nextRound);
 
 //-----------------------------------------------------------------------------
