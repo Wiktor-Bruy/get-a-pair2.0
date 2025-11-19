@@ -23,39 +23,40 @@ const refs = {
 let isComparwe = false;
 let span1;
 let span2;
-let count;
-switch (level) {
-  case 1:
-    count = 6;
-    break;
-  case 2:
-    count = 8;
-    break;
-  case 3:
-    count = 10;
-    break;
-  case 4:
-    count = 12;
-    break;
-  case 5:
-    count = 15;
-    break;
-  case 6:
-    count = 18;
-    break;
-  case 7:
-    count = 21;
-    break;
-  case 8:
-    count = 24;
-    break;
-  case 9:
-    count = 28;
-    break;
-  case 10:
-    count = 32;
-    break;
-}
+let timeStart;
+// let count;
+// switch (level) {
+//   case 1:
+//     count = 6;
+//     break;
+//   case 2:
+//     count = 8;
+//     break;
+//   case 3:
+//     count = 10;
+//     break;
+//   case 4:
+//     count = 12;
+//     break;
+//   case 5:
+//     count = 15;
+//     break;
+//   case 6:
+//     count = 18;
+//     break;
+//   case 7:
+//     count = 21;
+//     break;
+//   case 8:
+//     count = 24;
+//     break;
+//   case 9:
+//     count = 28;
+//     break;
+//   case 10:
+//     count = 32;
+//     break;
+// }
 //-----------------------------------------------------------------------------
 
 //----------------------------------------------------------------------Функції
@@ -84,6 +85,7 @@ function clickTeme(event) {
   showGamePage();
   getArrayImages(page, teme).then(answer => {
     render.renderGameGallery(answer, level);
+    timeStart = Date.now(timeStart);
   });
 }
 //-----------------------------------------------------------Вибір-теми-в-формі
@@ -132,10 +134,12 @@ function enterTeme(event) {
       showGamePage();
       refs.form.reset();
       render.renderGameGallery(answer, level);
+      timeStart = Date.now();
     }
   });
 }
 
+//---------------------------------------------------Перехід-на-наступний-раунд
 //--------------------------------------------------Обробка-кліків-по-картинкам
 function game(event) {
   if (isComparwe) {
@@ -152,10 +156,15 @@ function game(event) {
     span2 = elem;
     span2.classList.add('invis');
     isComparwe = true;
-    some.comparisonImg(span1, span2);
-    isComparwe = false;
-    span1 = 0;
-    span2 = 0;
+    some.comparisonImg(span1, span2).then(() => {
+      isComparwe = false;
+      span1 = 0;
+      span2 = 0;
+      const isOwer = some.isRoundOwer();
+      if (isOwer) {
+        render.showRounrOwerWindow();
+      }
+    });
   }
 }
 

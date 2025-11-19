@@ -1,3 +1,7 @@
+//--------------------------------------------Змінні-для-внутрішньої-роботи
+let evListNotImg = false;
+let roundOwerBtn = false;
+
 //-----------------------------------------------------Вікно-помилки-запиту
 export function showErrorWindow() {
   const wind = document.querySelector('.error-window');
@@ -8,7 +12,10 @@ export function showErrorWindow() {
 export function showNotImgWind() {
   const wind = document.querySelector('.not-images');
   wind.classList.add('is-open');
-  wind.addEventListener('click', closeNotImgWind);
+  if (!evListNotImg) {
+    wind.addEventListener('click', closeNotImgWind);
+    evListNotImg = true;
+  }
 }
 
 //---------------------------------------------------Рендер-галереї-для-гри
@@ -95,8 +102,22 @@ export function renderGameGallery(arr, level) {
   const game = document.querySelector('.game-gallery');
   game.append(...gameArr);
 }
+//--------------------------------------------------Вікно-закінчення-раунда
+export function showRounrOwerWindow(start) {
+  const wind = document.querySelector('.round-ower');
+  const text = document.querySelector('.round-ower-text');
+  const end = Date.now();
+
+  wind.classList.add('is-open');
+}
 
 //-------------------------------------------Функції-для-внутрішньої-роботи
+//------------------------------------------------------Розрахунок-часу-гри
+function timeGame(start, end) {
+  const time = end - start;
+  const hours = Math.floor(time / 60 / 60 / 1000);
+}
+
 //-------------------------------------------------Створення-масиву-для-гри
 function createGameArray(arr) {
   const newArr = arr.map(el => el.webformatURL);
