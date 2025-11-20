@@ -54,6 +54,7 @@ function clickTeme(event) {
     teme = input;
     level = 1;
     page = 1;
+    sessionStorage.setItem('teme', JSON.stringify(teme));
   }
   hideStartPage();
   showGamePage();
@@ -71,6 +72,7 @@ function enterTeme(event) {
     teme = input;
     level = 1;
     page = 1;
+    sessionStorage.setItem('teme', JSON.stringify(teme));
   }
   getArrayImages(level, teme, page).then(answer => {
     let quantiti;
@@ -124,6 +126,8 @@ function enterTeme(event) {
 function nextRound() {
   level++;
   page = Math.ceil(level / 2);
+  sessionStorage.setItem('level', JSON.stringify(level));
+  sessionStorage.setItem('page', JSON.stringify(page));
   getArrayImages(level, teme, page).then(answer => {
     let quantiti;
     switch (level) {
@@ -182,6 +186,9 @@ function goFirstPage() {
   level = 1;
   teme = undefined;
   page = 1;
+  sessionStorage.removeItem('teme');
+  sessionStorage.removeItem('level');
+  sessionStorage.removeItem('page');
 }
 
 //--------------------------------------------------Обробка-кліків-по-картинкам
