@@ -5,9 +5,9 @@ import * as render from './js/render-function';
 import * as some from './js/some-function';
 
 //-------------------------------------------------------------Глобальні-змінні
-const saveLevel = sessionStorage.getItem(level);
-const saveTeme = sessionStorage.getItem(teme);
-const savePage = sessionStorage.getItem(page);
+const saveLevel = JSON.parse(sessionStorage.getItem('level'));
+const saveTeme = JSON.parse(sessionStorage.getItem('teme'));
+const savePage = JSON.parse(sessionStorage.getItem('page'));
 let teme = saveTeme || undefined;
 let level = saveLevel || 1;
 let page = savePage || 1;
@@ -24,6 +24,7 @@ let isComparwe = false;
 let span1;
 let span2;
 let timeStart;
+let startTimeGlobal;
 
 //-----------------------------------------------------------------------------
 
@@ -56,9 +57,10 @@ function clickTeme(event) {
   }
   hideStartPage();
   showGamePage();
-  getArrayImages(page, teme).then(answer => {
+  getArrayImages(level, teme, page).then(answer => {
     render.renderGameGallery(answer, level);
     timeStart = Date.now();
+    startTimeGlobal = Date.now();
   });
 }
 //-----------------------------------------------------------Вибір-теми-в-формі
@@ -70,7 +72,7 @@ function enterTeme(event) {
     level = 1;
     page = 1;
   }
-  getArrayImages(page, teme).then(answer => {
+  getArrayImages(level, teme, page).then(answer => {
     let quantiti;
     switch (level) {
       case 1:
@@ -113,6 +115,7 @@ function enterTeme(event) {
       refs.form.reset();
       render.renderGameGallery(answer, level);
       timeStart = Date.now();
+      startTimeGlobal = Date.now();
     }
   });
 }
@@ -121,6 +124,53 @@ function enterTeme(event) {
 function nextRound() {
   level++;
   page = Math.ceil(level / 2);
+  getArrayImages(level, teme, page).then(answer => {
+    let quantiti;
+    switch (level) {
+      case 1:
+        quantiti = 6;
+        break;
+      case 2:
+        quantiti = 8;
+        break;
+      case 3:
+        quantiti = 10;
+        break;
+      case 4:
+        quantiti = 12;
+        break;
+      case 5:
+        quantiti = 15;
+        break;
+      case 6:
+        quantiti = 18;
+        break;
+      case 7:
+        quantiti = 21;
+        break;
+      case 8:
+        quantiti = 24;
+        break;
+      case 9:
+        quantiti = 28;
+        break;
+      case 10:
+        quantiti = 32;
+        break;
+    }
+    if (answer.length < quantiti) {
+      level = 1;
+      page = 1;
+      teme = undefined;
+      render.showNotImgNewRound();
+      refs.gameGallery.innerHTML = '';
+    } else {
+      refs.gameGallery.innerHTML = '';
+      render.renderGameGallery(answer, level);
+      timeStart = Date.now();
+      render.closeRoundOwerWindow();
+    }
+  });
 }
 
 //-------------------------------------------------Перехід-на-головну-з-модалки
@@ -156,7 +206,14 @@ function game(event) {
       span2 = 0;
       const isOwer = some.isRoundOwer();
       if (isOwer) {
-        render.showRounrOwerWindow(timeStart, level);
+        if (level === 10) {
+          level = 1;
+          page = 1;
+          teme = undefined;
+          render.showRounrOwerWindow(startTimeGlobal, level);
+        } else {
+          render.showRounrOwerWindow(timeStart, level);
+        }
       }
     });
   }

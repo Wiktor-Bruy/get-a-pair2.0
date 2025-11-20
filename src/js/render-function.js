@@ -8,6 +8,12 @@ export function showErrorWindow() {
   wind.classList.add('is-open');
 }
 
+//------------------------------------------Нестача-картинок-на-новий-раунд
+export function showNotImgNewRound() {
+  const wind = document.querySelector('.not-new-img');
+  wind.classList.add('is-open');
+}
+
 //----------------------------------Вікно-нестачі-картинок-при-вводі вручну
 export function showNotImgWind() {
   const wind = document.querySelector('.not-images');
@@ -113,7 +119,7 @@ export function showRounrOwerWindow(start, level) {
   if (level < 10) {
     text.textContent = `Ваш час раунда ${timeOut.hours} год. ${timeOut.minutes} хв. ${timeOut.secunds} сек. Бажаєте продовжити?`;
   } else {
-    text.textContent = 'Вітаємо, ві пройшили всі рівні за обраною темою.';
+    text.textContent = `Вітаємо, ви пройшили всі рівні за обраною темою. Час гри ${timeOut.hours} год. ${timeOut.minutes} хв. ${timeOut.secunds} сек.`;
     const btn = document.querySelector('.btn-continue');
     btn.classList.add('none');
   }

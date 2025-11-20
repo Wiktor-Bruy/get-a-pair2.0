@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { showErrorWindow } from './render-function';
 
-export default async function getImagesArray(level, teme) {
+export default async function getImagesArray(level, teme, page) {
   let quantiti;
   switch (level) {
     case 1:
@@ -44,7 +44,7 @@ export default async function getImagesArray(level, teme) {
     orientation: 'horizontal',
     safesearch: true,
     per_page: quantiti,
-    page: level,
+    page: page,
   });
 
   //Відправка запиту
