@@ -110,7 +110,11 @@ export function renderGameGallery(arr, level) {
 
   const numRound = document.querySelector('.num-round');
   numRound.classList.add('is-open');
-  numRound.textContent = `Раунд ${level} з 10`;
+  if (level < 10) {
+    numRound.textContent = `Раунд ${level} з 10`;
+  } else {
+    numRound.textContent = `Останній раунд.`;
+  }
 }
 //--------------------------------------------------Вікно-закінчення-раунда
 export function showRounrOwerWindow(start, level) {

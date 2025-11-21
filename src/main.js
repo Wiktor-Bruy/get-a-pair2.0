@@ -216,10 +216,10 @@ function game(event) {
       const isOwer = some.isRoundOwer();
       if (isOwer) {
         if (level === 10) {
+          render.showRounrOwerWindow(startTimeGlobal, level);
           level = 1;
           page = 1;
           teme = undefined;
-          render.showRounrOwerWindow(startTimeGlobal, level);
         } else {
           render.showRounrOwerWindow(timeStart, level);
         }
