@@ -19,6 +19,7 @@ const refs = {
   gameGallery: document.querySelector('.game-gallery'),
   goFirstPageBtn: document.querySelector('.go-first'),
   btnContinue: document.querySelector('.btn-continue'),
+  numRound: document.querySelector('.num-round'),
 };
 let isComparwe = false;
 let span1;
@@ -189,6 +190,7 @@ function goFirstPage() {
   sessionStorage.removeItem('teme');
   sessionStorage.removeItem('level');
   sessionStorage.removeItem('page');
+  refs.numRound.classList.remove('is-open');
 }
 
 //--------------------------------------------------Обробка-кліків-по-картинкам

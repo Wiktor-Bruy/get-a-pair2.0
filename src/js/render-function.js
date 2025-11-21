@@ -65,7 +65,7 @@ export function renderGameGallery(arr, level) {
       width = (1195 - 70 - 25) / 8;
       height = (595 - 60 - 25) / 7;
       break;
-    case 9:
+    case 10:
       width = (1195 - 70 - 25) / 8;
       height = (595 - 70 - 25) / 8;
       break;
@@ -107,6 +107,10 @@ export function renderGameGallery(arr, level) {
 
   const game = document.querySelector('.game-gallery');
   game.append(...gameArr);
+
+  const numRound = document.querySelector('.num-round');
+  numRound.classList.add('is-open');
+  numRound.textContent = `Раунд ${level} з 10`;
 }
 //--------------------------------------------------Вікно-закінчення-раунда
 export function showRounrOwerWindow(start, level) {
