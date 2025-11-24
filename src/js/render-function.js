@@ -127,7 +127,7 @@ export function showRounrOwerWindow(start, level) {
   if (level < 10) {
     text.textContent = `Ваш час раунда ${timeOut.hours} год. ${timeOut.minutes} хв. ${timeOut.secunds} сек. Бажаєте продовжити?`;
   } else {
-    text.textContent = `Вітаємо, ви пройшили всі рівні за обраною темою. Час гри ${timeOut.hours} год. ${timeOut.minutes} хв. ${timeOut.secunds} сек.`;
+    text.textContent = `Вітаємо, ви пройшли всі рівні за обраною темою. Час гри ${timeOut.hours} год. ${timeOut.minutes} хв. ${timeOut.secunds} сек.`;
     const btn = document.querySelector('.btn-continue');
     btn.classList.add('none');
   }
