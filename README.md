@@ -1,9 +1,9 @@
 # Get a pair 2.0
 
-Hello everyone!:blush: We present to you a new version of the browser game where
-you need to match pairs of pictures. This is a revised and improved version.
+Hello everyone! We present to you a new version of the browser game where you
+need to match pairs of pictures. This is a revised and improved version.
 
-I hope you enjoy the game.:smiley:
+I hope you enjoy the game.
 
 ## What has changed in the new version?
 
